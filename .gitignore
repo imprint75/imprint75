@@ -1,3 +1,9 @@
+# django local settings
+settings-local.py
+localsettings.py
+
+.vagrant
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
