@@ -1,17 +1,13 @@
-import datetime
 import logging
 
-from django.conf import settings
-# from django.utils import simplejson
-from django.core.cache import cache
-from django.shortcuts import redirect, render, get_object_or_404
-from django.template import RequestContext
+from django.shortcuts import render
 from django.template.defaultfilters import slugify
 
 from home.decorators import login_check
 from lib.EchoNest import echo_get_artist, echo_lookup, echo_artist_info
 
 logger = logging.getLogger(__name__)
+
 
 @login_check
 def index(request):
