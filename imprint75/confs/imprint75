@@ -1,0 +1,17 @@
+server {
+    listen          80;
+    server_name     imprint75.com www.imprint75.com;
+
+    access_log /var/www/logs/access.log;
+    error_log /var/www/logs/error.log;
+
+    location / {
+        include         uwsgi_params;
+        uwsgi_pass      unix:///run/uwsgi/app/imprint75/socket;
+    }
+
+    location /static {
+        root   /srv/imprint75/;
+        index  index.html index.htm;
+    }
+}
