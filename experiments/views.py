@@ -1,29 +1,36 @@
 import logging
 
 from django.shortcuts import render
-from django.template.defaultfilters import slugify
+from django.views.generic import View
 
-from home.decorators import login_check
-from lib.EchoNest import echo_get_artist, echo_lookup, echo_artist_info
+from libs.EchoNest import echo_get_artist, echo_lookup, echo_artist_info
 
 logger = logging.getLogger(__name__)
 
 
-@login_check
-def index(request):
-    return render(request, 'index.html', locals())
+class IndexView(View):
+    template_name = 'index.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, locals())
 
 
-@login_check
-def music_search(request):
-    main_search = echo_get_artist(request)
-    search_key = slugify(main_search)
+class MusicSearchView(View):
+    template_name = 'experiments/experiments.html'
 
-    info = {}
-    details = echo_lookup(search_key)
-    for i in details:
-        blogs = echo_artist_info(i['id'], "blogs")
-        blogs = blogs if blogs else ["No blogs found"]
-        info[i['name']] = blogs
+    def get(self, request, *args, **kwargs):
+        info = self.artist_lookup(request)
+        return render(request, self.template_name, locals())
 
-    return render(request, 'experiments/experiments.html', locals())
+    def post(self, request, *args, **kwargs):
+        info = self.artist_lookup(request)
+        return render(request, self.template_name, locals())
+
+    def artist_lookup(self, request):
+        info = {}
+        details = echo_lookup(echo_get_artist(request))
+        for i in details:
+            blogs = echo_artist_info(i['id'], "blogs")
+            blogs = blogs if blogs else ["No blogs found"]
+            info[i['name']] = blogs
+        return info

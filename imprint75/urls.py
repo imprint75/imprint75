@@ -8,11 +8,11 @@ import work.views
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^$', home.views.index),
+    url(r'^$', home.views.IndexView.as_view()),
     url(r'^home/?', include('home.urls')),
     url(r'^work/?', include('work.urls')),
     url(r'^experiments/?', include('experiments.urls')),
-    url(r'^info/?', work.views.index, name='work.index'),
+    url(r'^info/?', work.views.IndexView.as_view(), name='work.index'),
     url(r'^admin/', include(admin.site.urls)),
 ]
 

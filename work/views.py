@@ -1,5 +1,9 @@
 from django.shortcuts import render
+from django.views.generic import View
 
 
-def index(request):
-    return render(request, 'work/work.html', locals())
+class IndexView(View):
+    template_name = 'work/work.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, locals())

@@ -1,4 +1,4 @@
-from lib.EchoNest import EchoNest
+from libs.EchoNest import EchoNest
 
 
 def echo_nest():
