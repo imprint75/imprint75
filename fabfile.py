@@ -10,6 +10,11 @@ def vagrant():
     env.password = 'vagrant'
 
 
+def ocean():
+    env.hosts = ['compositron.com']
+    env.user = 'sean'
+
+
 def testing():
     run('ls')
 
